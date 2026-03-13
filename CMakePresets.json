@@ -1,0 +1,44 @@
+{
+    "version": 9,
+    "configurePresets": [
+        {
+            "name": "vcpkg",
+            "hidden": true
+        },
+        {
+            "name": "default",
+            "inherits": "vcpkg",
+            "displayName": "Default build",
+            "binaryDir": "${sourceDir}/build",
+            "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "release",
+            "configurePreset": "default"
+        },
+        {
+            "name": "debug",
+            "configurePreset": "default"
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "release",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "default"
+                },
+                {
+                    "type": "build",
+                    "name": "release"
+                }
+            ]
+        }
+    ]
+}
