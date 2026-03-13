@@ -19,11 +19,13 @@
     "buildPresets": [
         {
             "name": "release",
-            "configurePreset": "default"
+            "configurePreset": "default",
+            "configuration": "Release"
         },
         {
             "name": "debug",
-            "configurePreset": "default"
+            "configurePreset": "default",
+            "configuration": "Debug"
         }
     ],
     "workflowPresets": [
