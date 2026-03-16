@@ -8,7 +8,7 @@ target_sources(
         main.cpp
 )
 
-find_package(wxWidgets)
+find_package(wxWidgets REQUIRED)
 
 target_link_libraries(
     ${PROJECT_NAME}
