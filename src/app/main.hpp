@@ -5,8 +5,6 @@
 class Viewer: public wxApp
 {
     bool OnInit();
-    
-    wxFrame *m_frame;
 };
 
 

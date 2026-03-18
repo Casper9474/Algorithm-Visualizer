@@ -6,13 +6,16 @@ target_sources(
     ${PROJECT_NAME}
     PRIVATE
         main.cpp
-        mainWindow.cpp
+        mainFrame.cpp
+        graphCanvas.cpp
+        controlsCanvas.cpp
 
     PUBLIC
         FILE_SET HEADERS
         FILES
-            main.hpp
-            mainWindow.hpp
+            mainFrame.hpp
+            graphCanvas.hpp
+            controlsCanvas.hpp
 )
 
 find_package(wxWidgets REQUIRED)

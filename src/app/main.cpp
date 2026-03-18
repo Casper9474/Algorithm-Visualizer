@@ -1,12 +1,12 @@
 #include <wx/wx.h>
 
 #include "main.hpp"
-#include "mainWindow.hpp"
+#include "mainFrame.hpp"
 
 bool Viewer::OnInit()
 {
-    m_frame = new mainWindow();
-    m_frame->Show();
+    auto* frame {new MainFrame()};
+    frame->Show(true);
 
     return true;
 }
