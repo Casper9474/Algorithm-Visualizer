@@ -70,3 +70,8 @@ Testing/
 
 # build directories
 build/
+
+# clion and vs directories
+.vs/
+.cache/
+.idea/
