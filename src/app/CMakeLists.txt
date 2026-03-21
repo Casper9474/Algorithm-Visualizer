@@ -7,14 +7,14 @@ target_sources(
     PRIVATE
         main.cpp
         mainFrame.cpp
-        graphCanvas.cpp
+        VisualizerCanvas.cpp
         controlsCanvas.cpp
 
     PUBLIC
         FILE_SET HEADERS
         FILES
             mainFrame.hpp
-            graphCanvas.hpp
+            VisualizerCanvas.hpp
             controlsCanvas.hpp
 )
 

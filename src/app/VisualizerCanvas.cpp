@@ -1,15 +1,15 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 
-#include "graphCanvas.hpp"
+#include "VisualizerCanvas.hpp"
 
-GraphCanvas::GraphCanvas(wxWindow* parent) : wxPanel(parent) {
+VisualizerCanvas::VisualizerCanvas(wxWindow* parent) : wxPanel(parent) {
     SetMinSize(wxSize(200, 200));
     SetBackgroundColour(*wxYELLOW);
-    Bind(wxEVT_PAINT, &GraphCanvas::onPaint, this);
+    Bind(wxEVT_PAINT, &VisualizerCanvas::onPaint, this);
 };
 
-void GraphCanvas::onPaint(wxPaintEvent& event) {
+void VisualizerCanvas::onPaint(wxPaintEvent& event) {
     wxPaintDC dc(this);
 
     std::unique_ptr<wxGraphicsContext> gc(wxGraphicsContext::Create(dc));

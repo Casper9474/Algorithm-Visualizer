@@ -1,7 +1,7 @@
 #include <wx/wx.h>
 
 #include "mainFrame.hpp"
-#include "graphCanvas.hpp"
+#include "VisualizerCanvas.hpp"
 #include "controlsCanvas.hpp"
 
 MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxDefaultPosition, wxDefaultSize) {
@@ -9,7 +9,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxD
     auto* panel {new wxPanel(this)};
     
     auto* controlsCanvas {new ControlsCanvas(panel)};
-    auto* graphCanvas {new GraphCanvas(panel)};
+    auto* graphCanvas {new VisualizerCanvas(panel)};
 
     auto* mainSizer {new wxBoxSizer(wxHORIZONTAL)};
 
