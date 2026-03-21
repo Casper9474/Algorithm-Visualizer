@@ -1,9 +1,16 @@
 #pragma once
 #include <wx/wx.h>
 
-class GraphCanvas : public wxPanel {
+const auto g_graphPen {*wxTRANSPARENT_PEN};
+const auto g_graphBrush {*wxWHITE_BRUSH};
+
+
+class VisualizerCanvas : public wxPanel {
 public:
-    explicit VisualizerCanvas(wxWindow* parent);
+    explicit VisualizerCanvas(wxWindow* parent, std::shared_ptr<std::vector<int>> data);
+    auto updateData() -> void;
 private:
-    void onPaint(wxPaintEvent& event);
+    auto onPaint(wxPaintEvent &event) -> void;
+
+    std::shared_ptr<std::vector<int>> m_data;
 };

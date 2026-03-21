@@ -1,27 +1,47 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
+#include <wx/dcbuffer.h>
+#include <algorithm>
 
 #include "VisualizerCanvas.hpp"
 
-VisualizerCanvas::VisualizerCanvas(wxWindow* parent) : wxPanel(parent) {
-    SetMinSize(wxSize(200, 200));
-    SetBackgroundColour(*wxYELLOW);
+VisualizerCanvas::VisualizerCanvas(wxWindow *parent, std::shared_ptr<std::vector<int>> data) : wxPanel(parent), m_data(data) {
+    wxWindowBase::SetBackgroundStyle(wxBG_STYLE_PAINT);
+    wxWindowBase::SetBackgroundColour(*wxBLACK);
+
     Bind(wxEVT_PAINT, &VisualizerCanvas::onPaint, this);
-};
+}
 
-void VisualizerCanvas::onPaint(wxPaintEvent& event) {
-    wxPaintDC dc(this);
 
-    std::unique_ptr<wxGraphicsContext> gc(wxGraphicsContext::Create(dc));
+auto VisualizerCanvas::onPaint(wxPaintEvent &event) -> void {
+    wxAutoBufferedPaintDC dc(this);
+    dc.Clear();
 
-    if (gc) {
-        gc->SetPen(*wxRED_PEN);
-        gc->SetBrush(*wxTRANSPARENT_BRUSH);
+    if (m_data == nullptr || m_data->empty()) return;
 
-        wxGraphicsPath path {gc->CreatePath()};
-        path.AddCircle(100, 100, 50); 
-        path.CloseSubpath();
+    const std::unique_ptr<wxGraphicsContext> gc(wxGraphicsContext::Create(dc));
+    if (gc == nullptr) return;
+    gc->SetAntialiasMode(wxANTIALIAS_NONE);
+    gc->SetBrush(g_graphBrush);
+    gc->SetPen(g_graphPen);
 
-        gc->StrokePath(path);
+    const auto panelSize{GetClientSize()};
+    const auto count{m_data->size()};
+    const auto barWidth{static_cast<double>(panelSize.GetWidth())/count};
+
+    const auto maxValue{std::ranges::max(*m_data)};
+    if (maxValue == 0) return;
+    for (auto i{0}; i < count; i++) {
+        const auto normalizedHeight{(static_cast<double>((*m_data)[i]) / maxValue) * panelSize.GetHeight()};
+        gc->DrawRectangle(
+            i * barWidth,
+            panelSize.GetHeight() - normalizedHeight,
+            barWidth,
+            normalizedHeight
+        );
     }
+}
+
+auto VisualizerCanvas::updateData() -> void {
+    Refresh();
 };

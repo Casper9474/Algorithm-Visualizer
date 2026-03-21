@@ -2,12 +2,23 @@
 
 #include <wx/wx.h>
 
+#include "controlsCanvas.hpp"
+#include "VisualizerCanvas.hpp"
+
 class MainFrame: public wxFrame
 {
 public:
     MainFrame();
-    void onButton1Clicked(wxCommandEvent& event);
-    void onButton2Clicked(wxCommandEvent& event);
+    auto onButton1Clicked(wxCommandEvent &event) -> void;
 
-    void onDropdownSelected(wxCommandEvent& event);
+    void bubbleSort();
+
+    auto onButton2Clicked(wxCommandEvent &event) -> void;
+    auto onDropdownSelected(wxCommandEvent &event) -> void;
+    auto updateData() -> void;
+
+private:
+    auto onExit(wxCommandEvent &event) -> void;
+    ControlsCanvas* m_controlsCanvas;
+    VisualizerCanvas* m_visualizerCanvas;
 };
