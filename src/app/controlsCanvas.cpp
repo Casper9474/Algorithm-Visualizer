@@ -22,7 +22,7 @@ ControlsCanvas::ControlsCanvas(wxWindow* parent) : wxPanel(parent) {
     sizer->AddStretchSpacer(1);
     SetSizer(sizer);
 
-    auto* frame {dynamic_cast<MainFrame*>(GetParent())};
+    auto* frame {static_cast<MainFrame*>(GetParent())};
     button1->Bind(wxEVT_BUTTON, &MainFrame::onButton1Clicked, frame);
     button2->Bind(wxEVT_BUTTON, &MainFrame::onButton2Clicked, frame);
 

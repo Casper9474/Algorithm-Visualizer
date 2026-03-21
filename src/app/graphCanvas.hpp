@@ -3,7 +3,7 @@
 
 class GraphCanvas : public wxPanel {
 public:
-    GraphCanvas(wxWindow* parent);
+    explicit GraphCanvas(wxWindow* parent);
 private:
     void onPaint(wxPaintEvent& event);
 };
