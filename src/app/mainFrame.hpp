@@ -6,6 +6,8 @@ class MainFrame: public wxFrame
 {
 public:
     MainFrame();
-private:
-    void onButtonClicked(wxCommandEvent& event);
+    static void onButton1Clicked(wxCommandEvent& event);
+    static void onButton2Clicked(wxCommandEvent& event);
+
+    static void onDropdownSelected(wxCommandEvent& event);
 };

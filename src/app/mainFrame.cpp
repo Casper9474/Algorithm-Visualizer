@@ -5,7 +5,7 @@
 #include "controlsCanvas.hpp"
 
 MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxDefaultPosition, wxDefaultSize) {
-    this->Maximize();
+    this->wxTopLevelWindowMSW::Maximize();
     auto* panel {new wxPanel(this)};
     
     auto* controlsCanvas {new ControlsCanvas(panel)};
@@ -18,6 +18,14 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxD
     panel->SetSizer(mainSizer);
 };
 
-void MainFrame::onButtonClicked(wxCommandEvent& event) {
-    wxLogMessage("Button was clicked!");
+void MainFrame::onButton1Clicked(wxCommandEvent& event) {
+    wxLogMessage("Button 1 was clicked!");
+};
+
+void MainFrame::onButton2Clicked(wxCommandEvent& event) {
+    wxLogMessage("Button 2 was clicked!");
+};
+
+void MainFrame::onDropdownSelected(wxCommandEvent& event) {
+    wxLogMessage("Selected algorithm: %s", event.GetString());
 };

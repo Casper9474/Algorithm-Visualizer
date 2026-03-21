@@ -5,7 +5,7 @@
 
 bool Viewer::OnInit()
 {
-    auto* frame {new MainFrame()};
+    auto* frame { new MainFrame() };
     frame->Show(true);
 
     return true;
