@@ -19,14 +19,15 @@ auto BubbleSort::sort(std::shared_ptr<std::vector<int> > data, std::function<voi
     while (swapped && !stopRequested) {
         swapped = false;
         for (auto i{1}; i < n; i++) {
+            if (stopRequested) break;
             if ((*data)[i - 1] > (*data)[i]) {
                 std::swap((*data)[i - 1], (*data)[i]);
                 swapped = true;
+                
+                updateData();
+                std::this_thread::sleep_for(std::chrono::milliseconds(delay));
             }
         }
         n--;
-
-        updateData();
-        std::this_thread::sleep_for(std::chrono::milliseconds(delay));
     }
 }

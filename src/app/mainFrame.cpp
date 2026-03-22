@@ -28,7 +28,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Algorithm Visualizer", wxDe
         m_sorter = m_algorithms[0];
     }
 
-    m_data = std::make_shared<std::vector<int> >(500);
+    m_data = std::make_shared<std::vector<int> >(100);
     m_controlsCanvas = new ControlsCanvas(panel, algorithms);
     m_visualizerCanvas = new VisualizerCanvas(panel, m_data);
 
