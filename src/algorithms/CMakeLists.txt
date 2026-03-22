@@ -7,10 +7,12 @@ target_sources(
         AlgorithmsLib
             PRIVATE
                 bubbleSort.cpp
+                quickSort.cpp
 
             PUBLIC
                 FILE_SET HEADERS
                 FILES
                     sorter.h
                     bubbleSort.h
+                    quickSort.h
 )

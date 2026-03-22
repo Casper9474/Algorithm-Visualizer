@@ -6,6 +6,7 @@
 #include <random>
 
 #include "bubbleSort.h"
+#include "quickSort.h"
 #include "VisualizerCanvas.hpp"
 #include "controlsCanvas.hpp"
 #include "random.h"
@@ -18,6 +19,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Algorithm Visualizer", wxDe
     Center();
 
     m_algorithms.emplace_back(std::make_shared<BubbleSort>("Bubble Sort"));
+    m_algorithms.emplace_back(std::make_shared<QuickSort>("Quick Sort"));
 
     std::vector<std::string> algorithms;
     for (const auto &algo: m_algorithms) {
