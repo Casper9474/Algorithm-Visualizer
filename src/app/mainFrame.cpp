@@ -5,12 +5,12 @@
 #include <chrono>
 #include <random>
 
+#include "bubbleSort.h"
 #include "VisualizerCanvas.hpp"
 #include "controlsCanvas.hpp"
+#include "random.h"
+#include "sorter.h"
 
-std::random_device rd;
-std::mt19937 gen(static_cast<std::mt19937::result_type>(std::chrono::steady_clock::now().time_since_epoch().count()));
-std::uniform_int_distribution<> distribution(0, std::numeric_limits<int>::max());
 auto data{ std::make_shared<std::vector<int>>(499) };
 
 MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxDefaultPosition, wxDefaultSize) {
@@ -31,29 +31,16 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxD
 auto MainFrame::onButton1Clicked(wxCommandEvent &event) -> void {
 
     for (int i = 0; i < data->size(); i++) {
-        (*data)[i] = distribution(gen);
+        (*data)[i] = Random::get(0,std::numeric_limits<int>::max());
     }
 
     updateData();
 };
 
-auto MainFrame::bubbleSort() -> void {
-    auto n {data->size()};
-    bool swapped {true};
-    while (swapped) {
-        swapped = false;
-        for (auto i {1}; i < n; i++) {
-            if ((*data)[i-1] > (*data)[i]) {
-                std::swap((*data)[i-1], (*data)[i]);
-                updateData();
-                swapped = true;
-            }
-        }
-    }
-}
+auto sorter {std::make_unique<BubbleSort>()};
 
 auto MainFrame::onButton2Clicked(wxCommandEvent &event) -> void {
-    bubbleSort();
+    sorter->sort(data, [this]{updateData();});
 };
 
 auto MainFrame::onDropdownSelected(wxCommandEvent &event) -> void {

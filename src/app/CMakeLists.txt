@@ -16,6 +16,7 @@ target_sources(
             mainFrame.hpp
             VisualizerCanvas.hpp
             controlsCanvas.hpp
+            random.h
 )
 
 find_package(wxWidgets REQUIRED)
@@ -24,6 +25,7 @@ target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE
         wxWidgets::wxWidgets
+        AlgorithmsLib
 )
 
 if(CMAKE_SYSTEM_NAME MATCHES Windows)

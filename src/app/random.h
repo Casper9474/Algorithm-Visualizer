@@ -66,5 +66,3 @@ namespace Random
 		return get<R>(static_cast<R>(min), static_cast<R>(max));
 	}
 }
-
-#endif

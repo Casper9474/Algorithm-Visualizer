@@ -11,8 +11,6 @@ public:
     MainFrame();
     auto onButton1Clicked(wxCommandEvent &event) -> void;
 
-    void bubbleSort();
-
     auto onButton2Clicked(wxCommandEvent &event) -> void;
     auto onDropdownSelected(wxCommandEvent &event) -> void;
     auto updateData() -> void;
