@@ -8,6 +8,7 @@ target_sources(
             PRIVATE
                 bubbleSort.cpp
                 quickSort.cpp
+                mergeSort.cpp
 
             PUBLIC
                 FILE_SET HEADERS
@@ -15,4 +16,5 @@ target_sources(
                     sorter.h
                     bubbleSort.h
                     quickSort.h
+                    mergeSort.h
 )

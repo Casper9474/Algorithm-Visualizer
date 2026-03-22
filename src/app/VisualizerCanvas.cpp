@@ -28,10 +28,9 @@ auto VisualizerCanvas::onPaint(wxPaintEvent &event) -> void {
     const auto count{m_data->size()};
     const auto barWidth{static_cast<double>(panelSize.GetWidth())/count};
 
-    const auto maxValue{std::ranges::max(*m_data)};
-    if (maxValue == 0) return;
+    if (m_maxValue == 0) return;
     for (auto i{0}; i < count; i++) {
-        const auto normalizedHeight{(static_cast<double>((*m_data)[i]) / maxValue) * panelSize.GetHeight()};
+        const auto normalizedHeight{(static_cast<double>((*m_data)[i]) / m_maxValue) * panelSize.GetHeight()};
         gc->DrawRectangle(
             i * barWidth,
             panelSize.GetHeight() - normalizedHeight,

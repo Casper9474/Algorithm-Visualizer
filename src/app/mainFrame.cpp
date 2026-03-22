@@ -1,12 +1,11 @@
 #include <wx/wx.h>
-
-#include "mainFrame.hpp"
-
 #include <chrono>
 #include <random>
 
+#include "mainFrame.hpp"
 #include "bubbleSort.h"
 #include "quickSort.h"
+#include "mergeSort.h"
 #include "VisualizerCanvas.hpp"
 #include "controlsCanvas.hpp"
 #include "random.h"
@@ -20,6 +19,7 @@ MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Algorithm Visualizer", wxDe
 
     m_algorithms.emplace_back(std::make_shared<BubbleSort>("Bubble Sort"));
     m_algorithms.emplace_back(std::make_shared<QuickSort>("Quick Sort"));
+    m_algorithms.emplace_back(std::make_shared<MergeSort>("Merge Sort"));
 
     std::vector<std::string> algorithms;
     for (const auto &algo: m_algorithms) {
@@ -51,10 +51,13 @@ MainFrame::~MainFrame() {
 
 auto MainFrame::onButton1Clicked(wxCommandEvent &event) -> void {
     if (m_isSorting) return;
+    int maxValue{0};
     for (int i = 0; i < m_data->size(); i++) {
         (*m_data)[i] = Random::get(0, 1000);
+        if ((*m_data)[i] > maxValue) maxValue = (*m_data)[i];
     }
 
+    m_visualizerCanvas->setMaxValue(maxValue);
     updateData();
 };
 

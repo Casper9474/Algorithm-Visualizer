@@ -11,8 +11,11 @@ public:
 
     auto updateData() -> void;
 
+    auto setMaxValue(int maxValue) -> void { m_maxValue = maxValue; }
+
 private:
     auto onPaint(wxPaintEvent &event) -> void;
 
     std::shared_ptr<std::vector<int> > m_data;
+    int m_maxValue{0};
 };
