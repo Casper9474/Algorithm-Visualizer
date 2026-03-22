@@ -11,46 +11,94 @@
 #include "random.h"
 #include "sorter.h"
 
-auto data{ std::make_shared<std::vector<int>>(499) };
+MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "Algorithm Visualizer", wxDefaultPosition, wxSize(800, 600)) {
+    auto *panel{new wxPanel(this)};
+    panel->SetBackgroundColour(wxColour(30, 30, 30));
 
-MainFrame::MainFrame() : wxFrame(nullptr, wxID_ANY, "wxWidgets Hello World", wxDefaultPosition, wxDefaultSize) {
-    this->wxTopLevelWindowMSW::Maximize();
-    auto* panel {new wxPanel(this)};
-    
-    m_controlsCanvas = new ControlsCanvas(panel);
-    m_visualizerCanvas = new VisualizerCanvas(panel, data);
+    Center();
 
-    auto* mainSizer {new wxBoxSizer(wxHORIZONTAL)};
+    m_algorithms.emplace_back(std::make_shared<BubbleSort>("Bubble Sort"));
 
-    mainSizer->Add(m_controlsCanvas, 0, wxALL | wxEXPAND, 10);
+    std::vector<std::string> algorithms;
+    for (const auto &algo: m_algorithms) {
+        algorithms.emplace_back(algo->getName());
+    }
+
+    if (!m_algorithms.empty()) {
+        m_sorter = m_algorithms[0];
+    }
+
+    m_data = std::make_shared<std::vector<int> >(500);
+    m_controlsCanvas = new ControlsCanvas(panel, algorithms);
+    m_visualizerCanvas = new VisualizerCanvas(panel, m_data);
+
+    auto *mainSizer{new wxBoxSizer(wxHORIZONTAL)};
+
+    mainSizer->Add(m_controlsCanvas, 0, wxLEFT | wxTOP | wxBOTTOM | wxEXPAND, 10);
     mainSizer->Add(m_visualizerCanvas, 1, wxALL | wxEXPAND, 10);
     panel->SetSizer(mainSizer);
 };
 
+MainFrame::~MainFrame() {
+    m_stopRequested = true;
+
+    if (m_sortingThread.joinable()) {
+        m_sortingThread.join();
+    }
+}
 
 auto MainFrame::onButton1Clicked(wxCommandEvent &event) -> void {
-
-    for (int i = 0; i < data->size(); i++) {
-        (*data)[i] = Random::get(0,std::numeric_limits<int>::max());
+    if (m_isSorting) return;
+    for (int i = 0; i < m_data->size(); i++) {
+        (*m_data)[i] = Random::get(0, 1000);
     }
 
     updateData();
 };
 
-auto sorter {std::make_unique<BubbleSort>()};
-
 auto MainFrame::onButton2Clicked(wxCommandEvent &event) -> void {
-    sorter->sort(data, [this]{updateData();});
+    if (m_isSorting) return;
+    m_stopRequested = false;
+    m_isSorting = true;
+
+    if (m_sortingThread.joinable()) {
+        m_sortingThread.join();
+    }
+    m_sortingThread = std::thread(&MainFrame::runSortingWorker, this);
 };
 
 auto MainFrame::onDropdownSelected(wxCommandEvent &event) -> void {
-    wxLogMessage("Selected algorithm: %s", event.GetString());
+    if (m_isSorting) return;
+    for (const auto &algo: m_algorithms) {
+        if (event.GetString().ToStdString() == algo->getName()) {
+            m_sorter = algo;
+        }
+    }
 }
 
 auto MainFrame::updateData() -> void {
     m_visualizerCanvas->updateData();
 }
 
+auto MainFrame::onUpdateUiControls(wxUpdateUIEvent &event) -> void {
+    event.Enable(!m_isSorting);
+}
+
 auto MainFrame::onExit(wxCommandEvent &event) -> void {
     Close(true);
 };
+
+auto MainFrame::runSortingWorker() -> void {
+    if (m_sorter && m_data) {
+        auto updateCallback{
+            [this] {
+                CallAfter([this] {
+                    updateData();
+                });
+            }
+        };
+
+        m_sorter->sort(m_data, updateCallback, m_stopRequested, m_delay);
+    }
+    m_isSorting = false;
+}

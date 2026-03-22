@@ -12,7 +12,6 @@ VisualizerCanvas::VisualizerCanvas(wxWindow *parent, std::shared_ptr<std::vector
     Bind(wxEVT_PAINT, &VisualizerCanvas::onPaint, this);
 }
 
-
 auto VisualizerCanvas::onPaint(wxPaintEvent &event) -> void {
     wxAutoBufferedPaintDC dc(this);
     dc.Clear();

@@ -2,8 +2,7 @@
 
 #include <wx/wx.h>
 
-class Viewer: public wxApp
-{
+class Viewer : public wxApp {
     bool OnInit();
 };
 
