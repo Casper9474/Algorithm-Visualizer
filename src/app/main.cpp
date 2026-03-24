@@ -1,11 +1,14 @@
 #include <wx/wx.h>
 
-#include "main.hpp"
 #include "mainFrame.hpp"
 
-bool Viewer::OnInit() {
+class Viewer : public wxApp {
+  bool OnInit() {
     auto *frame{new MainFrame()};
     frame->Show(true);
 
     return true;
-}
+  }
+};
+
+IMPLEMENT_APP(Viewer)
