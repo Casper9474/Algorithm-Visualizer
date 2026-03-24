@@ -3,14 +3,14 @@
     "configurePresets": [
         {
             "name": "vcpkg",
-            "hidden": true
+            "hidden": true,
+            "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
         },
         {
             "name": "default",
             "inherits": "vcpkg",
             "displayName": "Default build",
             "binaryDir": "${sourceDir}/build",
-            "toolchainFile": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake",
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
             }
