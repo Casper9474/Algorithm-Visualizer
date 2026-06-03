@@ -1,6 +1,4 @@
 #include <wx/wx.h>
-#include <chrono>
-#include <random>
 
 #include "mainFrame.hpp"
 #include "bubbleSort.h"
