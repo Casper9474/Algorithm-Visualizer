@@ -4,7 +4,7 @@
 #include "bubbleSort.h"
 #include "quickSort.h"
 #include "mergeSort.h"
-#include "VisualizerCanvas.hpp"
+#include "visualizerCanvas.hpp"
 #include "controlsCanvas.hpp"
 #include "random.h"
 #include "sorter.h"

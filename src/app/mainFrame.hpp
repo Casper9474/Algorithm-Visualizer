@@ -5,7 +5,7 @@
 
 #include "controlsCanvas.hpp"
 #include "sorter.h"
-#include "VisualizerCanvas.hpp"
+#include "visualizerCanvas.hpp"
 
 class MainFrame : public wxFrame {
 public:

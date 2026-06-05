@@ -1,9 +1,8 @@
 #include <wx/wx.h>
 #include <wx/graphics.h>
 #include <wx/dcbuffer.h>
-#include <algorithm>
 
-#include "VisualizerCanvas.hpp"
+#include "visualizerCanvas.hpp"
 
 VisualizerCanvas::VisualizerCanvas(wxWindow *parent, std::shared_ptr<std::vector<int>> data) : wxPanel(parent), m_data(data) {
     wxWindowBase::SetBackgroundStyle(wxBG_STYLE_PAINT);

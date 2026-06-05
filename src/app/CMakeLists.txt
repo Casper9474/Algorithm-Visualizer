@@ -7,14 +7,14 @@ target_sources(
     PRIVATE
     main.cpp
     mainFrame.cpp
-    VisualizerCanvas.cpp
+    visualizerCanvas.cpp
     controlsCanvas.cpp
 
     PUBLIC
     FILE_SET HEADERS
     FILES
     mainFrame.hpp
-    VisualizerCanvas.hpp
+    visualizerCanvas.hpp
     controlsCanvas.hpp
     random.h
 )
